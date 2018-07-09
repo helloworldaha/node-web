@@ -30,8 +30,18 @@ var model = {
             }
             return this
         },
-        all: async function () {
-            return await query(this.queryObj, model.table)
+        limit: function (number) {
+            number = parseInt(number)
+            if (number < 0) number = 0
+            this.queryObj.limit = number
+            return this
+        },
+        all: async function (dataName) {
+            var obj = {}
+            var data = await query(this.queryObj, model.table)
+            if (!dataName) return data
+            obj[dataName] = data
+            return obj
         },
         one: async function () {
             //return new Promise((resolve, reject) => {
@@ -64,6 +74,10 @@ async function query(queryObj, table) {
     if (queryObj.where !== '') {
         sql += ' WHERE ' + queryObj.where
     }
+    if (queryObj.limit !== null) {
+        sql += ' LIMIT ' + queryObj.limit
+    }
+    console.log(sql)
     var data = await queryDB(sql, queryObj.params)
     /*console.log(sql)
     console.log(queryObj.params)

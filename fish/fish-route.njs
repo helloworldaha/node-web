@@ -36,9 +36,10 @@ var createPage = async function (req, res) {
     var actionInfo = await getActionInfo(req)
     // 获取动态数据
     var pageData = await getPageData(actionInfo)
+
     var pageString = ''
     // 获取静态数据
-    if (!pageData) {
+    if (pageData === undefined) {
         // 若动作或控制器不存在，404
         var viewPath = path.join(PATH.app, '404.html')
         pageString = fs.readFileSync(viewPath, 'utf-8')
@@ -52,11 +53,13 @@ var createPage = async function (req, res) {
     } else {
         Fish.response['content-type'] = 'text/html; charset=utf-8'
         // 动态数据填充
-        var pageString = await replaceDatas(pageData, pageString)
+        pageString = await replaceDatas(pageData, pageString)
     }
     console.log('-------------createPage--------------')
+   // return
     // 响应请求
     response(pageString, res)
+
 }
 
 /**
@@ -93,20 +96,21 @@ async function getPageData(actionInfo) {
         // var actionName = 'action' + actionInfo[1].substring(0, 1).toUpperCase() + actionInfo[1].substring(1)
         controller.actions.params = Fish;
         var func = 'controller.actions.' + actionInfo[1] + '()'
-        try {
+        //try {
+            console.log(func)
             var data = eval(func)
             console.log(data)
-            if (!data) {
+            /*if (!data) {
                 var HttpException = new Throw.HttpException(400, '参数错误');
                 throw  HttpException
-            }
+            }*/
             return data
-        } catch (err) {
+        //} catch (err) {
             console.log(err.message)
-            return false
-        }
+            return undefined
+        //}
     } else {
-        return false
+        return undefined
     }
 }
 
@@ -147,11 +151,12 @@ async function getStaticData(actionInfo, data, format) {
  * @returns {Promise<*>}
  */
 async function replaceDatas(data, str){
+    if (!data) return str
     // $matchs = str.match(/{{.*?}}/g)
     var i = 0
     var length = Object.getOwnPropertyNames(data).length
     for (var attr in data) {
-        str = str.replace(eval('/{{' + attr + '}}/g'), data[attr])
+        str = str.replace(eval('/{=' + attr + '=}/g'), JSON.stringify(data[attr]))
     }
     return str
 }

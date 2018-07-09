@@ -14,15 +14,10 @@ var actions = {
         // 查询数据
         // var query = News.model.find.select('title, cover, intro').where('id = ?', [id]).all()
         return new Promise((resolve, reject) => {
-            var news = News.model.find.select('title, cover, intro').where('id = ?', [id]).one()
+            var news = News.model.find.select('title, cover, intro').limit(3).all('news')
             resolve(news)
         })
-        console.log(query)
-        var data = {
-            'name': 'asdads',
-            'intro': '啊还是饥渴的啥会计考试的发就饿我i却无ask计划的撒可见度'
-        }
-        return data
+
     },
     view: function () {
         var id = this.params.request.get.id
@@ -37,7 +32,7 @@ var actions = {
             resolve(news)
         })
         // 查询数据
-        // var news = News.model.find.select('title, cover, intro').where('id = ?', [id]).one()
+        var news = News.model.find.select('title, cover, intro').where('id = ?', [id]).one()
         var news = News.findOne
         /*async.waterfall([
             function (callback) {
@@ -61,6 +56,11 @@ var actions = {
         }
         console.log(data)*/
         return {}
+    },
+    test: function () {
+        return {
+            fishData: {msg: "信息", intro: "简介", age: 10000}
+        }
     }
 }
 

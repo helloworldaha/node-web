@@ -143,16 +143,26 @@
         </li>
     </ul>
 </div>
-<div id="vue-content" class="content">
+<div class="content">
     <div>
         <ul>
-            <li class="news-list" v-for="news in newsArr">
-                <div class="news-title">{{ news.title }}比套题阿三打撒打撒打撒打撒啊实打实的</div>
+            <li class="news-list">
+                <div class="news-title">{{title}}比套题阿三打撒打撒打撒打撒啊实打实的</div>
                 <div class="news-info">发布：圣骑士·Saber 时间：<em>2018-07-07 16:28:16</em> 阅读：90 回复：1</div>
                 <div class="news-intro">
-                    <div class="news-intro-text">{{ news.intro }}</div>
+                    <div class="news-intro-text">{{intro}}</div>
                     <div class="news-cover">
-                        <img alt="kobe" :src="news.cover">
+                        <img alt="kobe" src="">
+                    </div>
+                </div>
+            </li>
+            <li class="news-list">
+                <div class="news-title">{{title}}比套题阿三打撒打撒打撒打撒啊实打实的</div>
+                <div class="news-info">发布：圣骑士·Saber 时间：2018-07-07 16:28:16阅读：90 回复：1</div>
+                <div class="news-intro">
+                    <div class="news-intro-text">{{intro}}</div>
+                    <div class="news-cover">
+                        <img alt="kobe" src="http://img.moeimg.net/wp-content/uploads/archives11/11898/20_5gzm3kchiy.jpg">
                     </div>
                 </div>
             </li>
@@ -173,13 +183,11 @@
 {=news=}
 <script>
     // 控制器返回的数据对象
-    var news = Fish.getDate('{=news=}')
-    console.log(news)
+    // var fishData = Fish.getDate('{=news=}')
+    console.log(fishData)
     var vm = new Vue({
-        el: '#vue-content',
-        data: {
-            newsArr: news
-        }
+        el: '#vue_det',
+        data: fishData
     })
 </script>
 </body>
