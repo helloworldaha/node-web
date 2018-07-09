@@ -4,6 +4,7 @@
     getDate: function (dataJsonStr) {
         var data = {}
         try {
+            dataJsonStr = dataJsonStr.replace(/\n|\t|\r/g, "")
             data =  JSON.parse(dataJsonStr);
             // data = eval('({"msg":"信息","intro":"简介","age":10000})')
         } catch (e) {
