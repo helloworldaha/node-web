@@ -11,7 +11,7 @@ var actions = {
     index: function () {
         var data = {
             'hello': 'Welcome !',
-            'description': '配置数据库以后，尝试使用 yoursite.com/news/views?id=1 访问动态页面 :）'
+            'description': '配置数据库以后，尝试使用 yoursite.com/news/index 访问动态页面 :）'
         }
         return data
     }

@@ -8,110 +8,64 @@
     <meta name="keywords" content="二次元,动漫,宅，ACG,新闻,声优">
     <meta itemprop="name" content="动漫新闻屋">
     <title>动漫新闻屋</title>
+    <link href="/css/index.css" rel="stylesheet">
+    <!--<script src="/js/fish.js"></script>
+    <script src="/js/vue.js"></script>-->
 </head>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: #f3f3f3;
-    }
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    li {
-        list-style-image: none;
-        list-style-position: outside;
-        list-style-type: none;
-    }
-    .content {
-        width: 1100px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    #footer {
-        position: relative;
-        _zoom: 1;
-        margin-top: 536px;
-    }
-    #footerimg {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        margin-left: -500px;
-        width: 1000px;
-        height: 347px;
-        background: url(//static.missevan.com/assets/www/images/build/footer02.68d8aa96.png);
-        z-index: 10;
-        -pie-png-fix: true;
-    }
-    #footerbar, #mainfooterbar {
-        position: relative;
-        background-color: #f69057;
-    }
-    #footerbar {
-        top: 294px;
-        height: 53px;
-    }
-    #footerinfo, #soundfooterinfo {
-        position: relative;
-        width: 1000px;
-        margin: 0 auto;
-    }
 
-    #footerinfo {
-        height: 53px;
-    }
-    #powered, .powered {
-        color: #fff;
-        font-size: 12px;
-        line-height: 17px;
-    }
-
-    #powered {
-        position: absolute;
-        top: 3px;
-        left: 180px;
-    }
-
-    #header {
-        display: block;
-        position: relative;
-        width: 100%;
-        background-color: #f69057;
-        /*border: 2px solid #000;*/
-        box-shadow: 0 0 5px #f69057;
-        height: 40px;
-        line-height: 40px;
-        z-index: 20;
-        font-size: 15px;
-    }
-    .nav {
-        margin: 0 0 0 150px;
-    }
-    .nav li {
-        margin-left: 40px;
-        float: left;
-    }
-</style>
 <body>
-<div id="header">
-    <ul class="nav">
-        <li>
-            首页
-        </li>
-        <li>
-            影视区
-        </li>
-        <li>
-            音乐区
-        </li>
-    </ul>
+<!-- 页头 -->
+<div class="header">
+    <div class="nav-menu">
+        <div class="blur-bg"></div>
+        <div class="nav-mask"></div>
+        <div class="fish-wrapper clearfix ">
+            <div class="nav-con fl">
+                <ul class="nav">
+                    <li report-id="playpage_main" class="nav-item home">
+                        <a href="#" title="主站" class="t"><i class="bili-icon"></i>主站</a>
+                    </li>
+                    <li report-id="playpage_huahua" class="nav-item hbili">
+                        <a href="#" target="_blank" title="动漫资讯" class="t">动漫资讯</a>
+                    </li>
+                    <li report-id="playpage_music" class="nav-item mbili">
+                        <a href="#" target="_blank" title="来探索音乐的世界吧~" class="t">音乐</a>
+                    </li>
+                    <li report-id="playpage_game" class="nav-item game">
+                        <a href="//game.bilibili.com" target="_blank" title="番剧" class="t">番剧</a>
+                    </li>
+                    <li report-id="playpage_live" class="nav-item live">
+                        <a href="//live.bilibili.com" target="_blank" title="论坛" class="t">论坛</a>
+                    </li>
+                    <li report-id="playpage_download" class="nav-item mobile">
+                        <i class="b-icon b-icon-app"></i>
+                        <a id="header-mobile-app" href="#" target="_blank" title="下载APP" class="t">下载APP</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="banner_link" class="head-banner" scrollshow="true">
+        <div class="head-content">
+            <div class="search">
+                <form class="searchform">
+                    <input type="text" placeholder="精彩资讯，一搜掌握~" value="" class="search-keyword">
+                    <button type="submit" class="search-submit"></button>
+                </form>
+            </div>
+            <a href="#" class="head-logo">AcGay</a>
+        </div>
+    </div>
 </div>
-<div class="content">
-<h1>{=hello=}</h1>
-{=description=}
+<!-- 主体内容 -->
+<div id="vue-content" class="content">
+    <div style="text-align: center;color: #00baf3">
+        <h1>{=hello=}</h1>
+        {=description=}
+    </div>
+
 </div>
+<!-- 页脚 -->
 <div id="footer">
     <div id="footerimg" class="pie"></div>
     <div id="footerbar" class="pie">
@@ -125,3 +79,4 @@
 </div>
 </body>
 </html>
+

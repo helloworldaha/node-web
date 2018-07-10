@@ -14,7 +14,7 @@ var actions = {
         // 查询数据
         // var query = News.model.find.select('title, cover, intro').where('id = ?', [id]).all()
         return new Promise((resolve, reject) => {
-            var news = News.model.find.select('title, cover, intro').limit(3).all('news')
+            var news = News.model.find.select('title, cover, intro, creator').limit(10).all('news')
             resolve(news)
         })
 
