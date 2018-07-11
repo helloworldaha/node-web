@@ -3,14 +3,12 @@ var url = require('url')
 var fs = require('fs')
 var mysql  = require('mysql');
 var path = require('path')
-var config = require(path.join(__dirname, '../config.njs'))
-var Db = require(path.join(config.path.fish, 'mysql/model.njs'))
+var config = require(path.join(__dirname, '../../app/config.njs'))
+var baseModel = require(path.join(config.path.fish, 'mysql/baseModel.njs'))
 
-
-var model = Db.model
-var findOne = Db.findOne
-
-model.table = 'news'
-
-exports.model = model;
-exports.findOne = findOne;
+class News extends baseModel.model {
+    getTable() {
+        return 'news'
+    }
+}
+exports.model = new News();

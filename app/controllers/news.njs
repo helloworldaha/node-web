@@ -9,15 +9,12 @@ var Fish = {}
 
 var actions = {
     params: {},
-    index: function () {
+    index: async function () {
         var id = this.params.request.get.id
         // 查询数据
-        // var query = News.model.find.select('title, cover, intro').where('id = ?', [id]).all()
-        return new Promise((resolve, reject) => {
-            var news = News.model.find.select('title, cover, intro, creator').limit(10).all('news')
-            resolve(news)
-        })
-
+        var news = await News.model.select('id, title, cover, intro, creator').where('id < 10').all()
+        console.log({news: news})
+        return {news: news}
     },
     view: function () {
         var id = this.params.request.get.id

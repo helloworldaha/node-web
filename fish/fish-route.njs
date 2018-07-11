@@ -55,7 +55,6 @@ var createPage = async function (req, res) {
         // 动态数据填充
         pageString = await replaceDatas(pageData, pageString)
     }
-    console.log('-------------createPage--------------')
    // return
     // 响应请求
     response(pageString, res)
@@ -99,7 +98,6 @@ async function getPageData(actionInfo) {
         //try {
             console.log(func)
             var data = eval(func)
-            console.log(data)
             /*if (!data) {
                 var HttpException = new Throw.HttpException(400, '参数错误');
                 throw  HttpException
@@ -130,7 +128,6 @@ async function getStaticData(actionInfo, data, format) {
     var exists = fs.existsSync(viewPath)
     if (exists) {
         var str = fs.readFileSync(viewPath, format)
-        console.log('-------------getStaticData--------------)')
         return str
     } else {
         var jsonObj = {
@@ -138,7 +135,6 @@ async function getStaticData(actionInfo, data, format) {
             'code': 0,
             'info': data
         }
-        console.log('-------------getStaticData--------------)')
         return jsonObj
     }
 }
