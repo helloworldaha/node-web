@@ -21,6 +21,16 @@ class Model {
     getDb() {
         return 'test'
     }
+    find() {
+        this.queryObj = {
+            select: '*',
+            where: '',
+            params: [],
+            order: '',
+            limit: null
+        }
+        return this
+    }
     select(str) {
         // @TODO: 需要预处理查询语句
         this.queryObj.select = str
@@ -39,6 +49,10 @@ class Model {
         number = parseInt(number)
         if (number < 0) number = 0
         this.queryObj.limit = number
+        return this
+    }
+    order(str) {
+        this.queryObj.order = str
         return this
     }
     async one() {
@@ -60,17 +74,18 @@ class Model {
         })
         var table = this.getTable()
         var db = this.getDb()
-        var select = this.queryObj.select
         var sql = 'SELECT ' + this.queryObj.select + ' FROM `' + db + '`.`' + table + '`';
-        if (this.queryObj.where !== '') {
+        if (this.queryObj.where) {
             sql += ' WHERE ' + this.queryObj.where
+        }
+        if (this.queryObj.order) {
+            sql += ' ORDER BY ' + this.queryObj.order
         }
         if (this.queryObj.limit !== null) {
             sql += ' LIMIT ' + this.queryObj.limit
         }
         console.log(sql)
         var data = await this.queryDB(sql, this.queryObj.params)
-        // console.log(data)
         return data
     }
     async queryDB(sql, params) {
@@ -96,19 +111,3 @@ class Model {
     }
 }
 exports.model = Model;
-/*var ccc = new Model('kobe')
-ccc.select('title').where('id=1').all()
-var test = async function () {
-    var cc = await ccc.select('title').where('id=1').all()
-    // return ccc.data
-    console.log({tooo: cc})
-}
-test()*/
-// console.log(ccc.select('title').where('id=1').all())
-// console.log(ccc.data)
-// module.exports = Point;
-
-
-// console.log(model.table)
-
-// module.exports.findOne = findOne

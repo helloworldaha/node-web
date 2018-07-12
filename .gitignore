@@ -1,4 +1,4 @@
 .idea
 node_modules/*
-app/config.js
-servers.njs
+app/config.njs
+/servers.njs
