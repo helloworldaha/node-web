@@ -19,7 +19,7 @@ class Model {
         return ''
     }
     getDb() {
-        return 'test'
+        return 'music'
     }
     find() {
         this.queryObj = {
