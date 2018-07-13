@@ -1,10 +1,10 @@
 var path = require('path')
-var path = require('path')
 var config = require(path.join(__dirname, '../config.njs'))
 var Music = require(path.join(config.path.app, 'models/Music.njs'))
-var async = require('async')
-var Throw = require(path.join(config.path.fish, 'throw.njs'))
+// var Throw = require(path.join(config.path.fish, 'throw.njs'))
+var mutils = require(path.join(config.path.fish, 'mutils.njs'))
 
+var date = mutils.date
 var Fish = {}
 
 var actions = {
@@ -38,6 +38,21 @@ var actions = {
                 newSounds: newSounds,
                 vocaloidSounds: vocaloidSounds,
                 hotSounds: hotSounds
+            }
+        }
+        // console.log(data)
+        return data
+    },
+    play: async function () {
+        var id = this.params.request.get.id ? this.params.request.get.id : 1
+        var sound = await Music.model.find()
+            .select('id, subject, author, views, photo, url, created, replies')
+            .where('id = ?', [id])
+            .one()
+        sound.created = date(sound.created, 'y-MM-dd HH:mm:ss')
+        var data = {
+            fishData: {
+                sound: sound
             }
         }
         // console.log(data)

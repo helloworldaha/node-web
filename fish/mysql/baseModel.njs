@@ -56,10 +56,10 @@ class Model {
         return this
     }
     async one() {
-        //return new Promise((resolve, reject) => {
         this.queryObj.limit = 1
-        return await this.query()
-        //})
+        var data = await this.query()
+        data = data[0]
+        return data
     }
     async all() {
         return await this.query()

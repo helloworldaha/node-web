@@ -185,7 +185,7 @@
                         <a href="/" title="主站" class="t"><i class="bili-icon"></i>主站</a>
                     </li>
                     <li report-id="playpage_huahua" class="nav-item hbili">
-                        <a href="/new/index" target="_blank" title="动漫资讯" class="t">动漫资讯</a>
+                        <a href="/news/index" target="_blank" title="动漫资讯" class="t">动漫资讯</a>
                     </li>
                     <li report-id="playpage_music" class="nav-item mbili">
                         <a href="/music/index" target="_blank" title="来探索音乐的世界吧~" class="t">音乐</a>
@@ -229,8 +229,9 @@
             <div class="recommend">
                 <ul>
                     <li class="recommend-ele" v-for="recommendSound in recommendSounds">
-                        <a href="#">
-                            <img alt="elem" :src="recommendSound.photo">
+                        <a :href="'/music/play?id=' + recommendSound.id" target="_blank">
+                            <img alt="elem" :src="recommendSound.photo"
+                                 onerror="this.src='/dev/music/elem.webp'">
                             <div class="card-mark">
                                 <p class="title">{{recommendSound.subject}}</p>
                                 <p class="author">{{recommendSound.author}}</p>
@@ -250,9 +251,10 @@
             <div class="clearfix">
                 <ul class="clearfix">
                     <li class="module-elem" v-for="newSound in newSounds">
-                        <a href="#">
+                        <a :href="'/music/play?id=' + newSound.id" target="_blank">
                             <div class="module-elem-cover">
-                                <img :alt="newSound.subject" :src="newSound.photo">
+                                <img :alt="newSound.subject" :src="newSound.photo"
+                                     onerror="this.src='/dev/music/elem4.webp'">
                             </div>
                             <div :title="newSound.subject"
                                class="module-elem-title fish-font">
@@ -280,9 +282,10 @@
             <div class="clearfix">
                 <ul class="clearfix">
                     <li class="module-elem" v-for="vocaloidSound in vocaloidSounds">
-                        <a href="#">
+                        <a :href="'/music/play?id=' + vocaloidSound.id" target="_blank">
                             <div class="module-elem-cover">
-                                <img :alt="vocaloidSound.subject" :src="vocaloidSound.photo">
+                                <img :alt="vocaloidSound.subject" :src="vocaloidSound.photo"
+                                     onerror="this.src='/dev/music/elem4.webp'">
                             </div>
                             <div :title="vocaloidSound.subject"
                                  class="module-elem-title fish-font">
@@ -313,9 +316,10 @@
             <div class="clearfix">
                 <ul class="clearfix">
                     <li class="module-elem" v-for="hotSound in hotSounds">
-                        <a href="#">
+                        <a :href="'/music/play?id=' + hotSound.id" target="_blank">
                             <div class="module-elem-cover">
-                                <img :alt="hotSound.subject" :src="hotSound.photo">
+                                <img :alt="hotSound.subject" :src="hotSound.photo"
+                                     onerror="this.src='/dev/music/elem5.webp'">
                             </div>
                             <div :title="hotSound.subject"
                                  class="module-elem-title fish-font">
