@@ -1,11 +1,23 @@
-var http = require('http')
-var static = require('node-static')
 var url = require('url')
-var util = require('util')
 var static = require('node-static');
+var express = require('express')
+var bodyParser = require('body-parser')
+var multer  = require('multer')
+
 var index = require('./public/index.njs')
 
 var fileServer = new static.Server('public');
+var app = express();
+
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(multer({ dest: '/tmp/'}).fields([{name:'photo',maxCount:9},{name:'sound',maxCount:1}]))
+
+app.use('/', function (req, res){
+    console.log(req.files)
+
+    handleReq(req, res)
+})
 
 var handleReq = function (req, res) {
     var path = url.parse(req.url).path
@@ -24,6 +36,8 @@ var handleReq = function (req, res) {
     }
     index.serve(req, res)
 }
+app.listen(8989)
+
 // 在此处可配置监听的端口号
-http.createServer(handleReq).listen(8787, '127.0.0.1')
+// http.createServer(handleReq).listen(8787, '127.0.0.1')
 console.log('This servers is running !')

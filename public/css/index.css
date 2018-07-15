@@ -20,6 +20,14 @@ a {
 .text {
     font: 16px Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
 }
+.clearfix:before {
+    content: "";
+    display: table;
+}
+.clearfix:before {
+    content: "";
+    display: table;
+}
 .content {
     width: 1140px;
     margin: 30px auto;

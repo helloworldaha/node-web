@@ -2,6 +2,8 @@ var mysql  = require('mysql');
 var async = require('async')
 var path = require('path')
 var config = require(path.join(__dirname, '../../app/config.njs'))
+var mutils = require(path.join(config.path.fish, 'mutils.njs'))
+
 const DB_POOL = mysql.createPool(config.mysql)
 
 class Model {
@@ -14,6 +16,13 @@ class Model {
             order: '',
             limit: null
         }
+        this.attrs = {}
+    }
+    attributeLabels() {
+        return {}
+    }
+    fields() {
+        return [];
     }
     getTable() {
         return ''
@@ -64,14 +73,38 @@ class Model {
     async all() {
         return await this.query()
     }
+    async save() {
+        return await this.saveData()
+    }
+    async saveAsync(db) {
+        var data = await this.saveData()
+        db(data)
+    }
+    //
+    async saveData() {
+        var table = this.getTable()
+        var db = this.getDb()
+        var fieldsArr = this.fields()
+        var fields = ''
+        var values = ''
+        var attrsNameArr = []
+        var valuesArr = []
+        var attrs = this.attrs
+        for (var attr in attrs) {
+            if (mutils.inArray(attr, fieldsArr)) {
+                attrsNameArr.push(attr)
+                valuesArr.push('"' + attrs[attr] + '"')
+            }
+        }
+        fields = attrsNameArr.join(', ')
+        values = valuesArr.join(', ')
+        var sql = 'INSERT INTO `' + db + '`.`' + table + '` (' + fields + ') VALUES (' + values + ')'
+        console.log(sql)
+        var data = await this.queryDB(sql, this.queryObj.params)
+        return data
+    }
+
     async query() {
-        var connection = mysql.createConnection({
-            host     : 'localhost',
-            user     : 'root',
-            password : 'root',
-            port: '3306',
-            database: 'test',
-        })
         var table = this.getTable()
         var db = this.getDb()
         var sql = 'SELECT ' + this.queryObj.select + ' FROM `' + db + '`.`' + table + '`';
@@ -90,6 +123,7 @@ class Model {
     }
     async queryDB(sql, params) {
         var that = this
+
         return new Promise((resolve, reject) => {
             DB_POOL.getConnection(function(err, connection) {
                 if (err) {

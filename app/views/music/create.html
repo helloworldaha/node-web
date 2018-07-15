@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="keywords" content="二次元,动漫,宅，ACG,新闻,声优">
+    <meta itemprop="name" content="动漫新闻屋">
+    <title>动漫新闻屋</title>
+    <link href="/css/index.css" rel="stylesheet">
+    <script src="/js/fish.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>-->
+</head>
+<style>
+</style>
+<body>
+<!-- 页头 -->
+<div class="header">
+    <div class="nav-menu">
+        <div class="blur-bg"></div>
+        <div class="nav-mask"></div>
+        <div class="fish-wrapper clearfix ">
+            <div class="nav-con fl">
+                <ul class="nav">
+                    <li report-id="playpage_main" class="nav-item home">
+                        <a href="/" title="主站" class="t"><i class="bili-icon"></i>主站</a>
+                    </li>
+                    <li report-id="playpage_huahua" class="nav-item hbili">
+                        <a href="/news/index" target="_blank" title="动漫资讯" class="t">动漫资讯</a>
+                    </li>
+                    <li report-id="playpage_music" class="nav-item mbili">
+                        <a href="/music/index" target="_blank" title="来探索音乐的世界吧~" class="t">音乐</a>
+                    </li>
+                    <li report-id="playpage_game" class="nav-item game">
+                        <a href="//game.bilibili.com" target="_blank" title="番剧" class="t">番剧</a>
+                    </li>
+                    <li report-id="playpage_live" class="nav-item live">
+                        <a href="//live.bilibili.com" target="_blank" title="论坛" class="t">论坛</a>
+                    </li>
+                    <li report-id="playpage_download" class="nav-item mobile">
+                        <i class="b-icon b-icon-app"></i>
+                        <a id="header-mobile-app" href="#" target="_blank" title="下载APP" class="t">下载APP</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="banner_link" class="head-banner" scrollshow="true">
+        <div class="head-content">
+            <div class="search">
+                <form class="searchform">
+                    <input type="text" placeholder="精彩资讯，一搜掌握~" value="" class="search-keyword">
+                    <button type="submit" class="search-submit"></button>
+                </form>
+            </div>
+            <a href="#" class="head-logo">AcGay</a>
+        </div>
+    </div>
+</div>
+<!-- 主体内容 -->
+<div id="vue-content" class="content">
+    <h3>文件上传：</h3>
+    选择一个文件上传: <br />
+    <!--<form action="/music/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" size="50" />
+        <input type="text" name="sex" size="50" />
+        <br />
+        <input type="submit" value="上传文件" />
+    </form>-->
+
+    <form id="form">
+        <input type="text" accept="image/gif,image/jpeg,image/jpg,image/png" value="" v-model="subject"
+               placeholder="请输入音乐名称">
+        <input type="text" accept="audio/*" value="" v-model="summary" placeholder="请输入简介">
+        音频封面: <input type="file" @change="getPhoto($event)">
+        音频文件: <input type="file" @change="getSound($event)">
+        <button @click="submitForm($event)">提交</button>
+    </form>-
+
+</div>
+<!-- 页脚 -->
+<div id="footer">
+    <div id="footerimg" class="pie"></div>
+    <div id="footerbar" class="pie">
+        <div id="footerinfo">
+            <div id="powered">
+                动漫新闻屋<br>
+                技术支持：鱼鱼鱼<br>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        Vue.prototype.$http = axios;
+        new Vue({
+            el: '#form',
+            data: {
+                subject: '',
+                summary: '',
+                photo: '',
+                sound: ''
+            },
+            methods: {
+                getPhoto(event) {
+                    this.photo = event.target.files[0];
+                    console.log(this.photo);
+                },
+                getSound(event) {
+                    this.sound = event.target.files[0];
+                    console.log(this.sound);
+                },
+                submitForm(event) {
+                    event.preventDefault();
+                    let formData = new FormData();
+                    formData.append('subject', this.subject);
+                    formData.append('summary', this.summary);
+                    formData.append('photo', this.photo);
+                    formData.append('sound', this.sound);
+                    let config = {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                    this.$http.post('/music/createmusic', formData, config).then(function (res) {
+                        if (res.status === 200) {
+                            console.log(res.data)
+                            alert(res.data.info)
+                        }
+                    })
+                }
+            }
+        })
+    }
+</script>
+<script>
+    // 控制器返回的数据对象
+    /*var fishData = Fish.getDate('{=data=}')
+    console.log(fishData)
+    var vm = new Vue({
+        el: '#vue-content',
+        data: {
+            recommendSounds: fishData.recommendSounds,
+            newSounds: fishData.newSounds,
+            vocaloidSounds: fishData.vocaloidSounds,
+            hotSounds: fishData.hotSounds
+        }
+    })*/
+</script>
+</body>
+</html>

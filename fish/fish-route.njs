@@ -2,7 +2,6 @@ var url = require('url')
 var fs = require('fs')
 var config = require('../app/config.njs')
 var path  = require('path')
-var async = require('async')
 var Throw = require(path.join(config.path.fish, 'throw.njs'))
 
 const PATH = config.path
@@ -11,6 +10,7 @@ var Fish = {
     request: {
         get: {},
         post: {},
+        files: [],
         header: {}
     },
     response: {
@@ -30,6 +30,7 @@ var app = {
  * @param res 响应信息
  */
 var createPage = async function (req, res) {
+
     // 初始化请求与响应参数
     await initFish(req)
     // 通过路由获取要请求的控制器及动作
@@ -92,7 +93,7 @@ async function getPageData(actionInfo) {
     var exists = fs.existsSync(controllerPath)
     if (exists) {
         var controller = require(controllerPath)
-        // var actionName = 'action' + actionInfo[1].substring(0, 1).toUpperCase() + actionInfo[1].substring(1)
+        // var actionName = 'action' + actionInfo[1].substring(0, 1).toUpperCase() + actionInfo[1].substring(1)h)
         controller.actions.params = Fish;
         var func = 'controller.actions.' + actionInfo[1] + '()'
         //try {
@@ -166,6 +167,9 @@ async function replaceDatas(data, str){
  */
 async function initFish(req) {
     Fish.request.get = url.parse(req.url, true).query
+    Fish.request.files = req.files
+    Fish.request.post = req.body
+    // console.log(req.body)
 }
 
 function response(data, res) {
