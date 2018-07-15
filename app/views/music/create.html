@@ -290,7 +290,7 @@ new Vue({
                     'Content-Type': 'multipart/form-data'
                 }
             }
-            window.Fish.showModel('音频加载中')
+            window.Fish.showModel('音频创建中...')
             this.$http.post('/music/createmusic', formData, config).then(function (res) {
                 window.Fish.hideModel()
                 if (res.status === 200) {
