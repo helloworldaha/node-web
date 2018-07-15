@@ -20,6 +20,11 @@ a {
 .text {
     font: 16px Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
 }
+.clear-input {
+    outline: none;
+    border: none;
+    background: none;
+}
 .clearfix:before {
     content: "";
     display: table;

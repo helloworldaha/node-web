@@ -89,6 +89,7 @@ var actions = {
     createmusic: async function () {
         var subject = this.params.request.post.subject
         var summary = this.params.request.post.summary
+        var category_id = parseInt(this.params.request.post.category_id)
         var photoFile = this.params.request.files.photo
         var soundFile = this.params.request.files.sound
         if (!photoFile) {
@@ -103,18 +104,18 @@ var actions = {
             return '文件类型错误'
         }
         // console.log(this.params.request.post)
-        addMusic(subject, summary, photo, soundUrl)
+        addMusic(subject, summary, category_id, photo, soundUrl)
         return '歌曲创建成功'
     }
 }
 
-async function addMusic(subject, summary, photo, soundUrl) {
+async function addMusic(subject, summary, category_id, photo, soundUrl) {
     var music = Music.model
     var timeStamp = Date.parse(new Date()) / 1000;
     music.attrs = {
         uid: 349524,
         music_id: 233,
-        music_category_id: 3,
+        music_category_id: category_id,
         subject: subject,
         summary: summary,
         author: '鱼鱼鱼',
