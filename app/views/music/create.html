@@ -85,6 +85,12 @@
         width: 90px;
         opacity: 0;
     }
+    .show-photo {
+        width: 200px;
+        height: 120px;
+        display: none;
+        border: #2e2e2e solid 2px;
+    }
     #contribute-form .submit {
         height: 40px;
         width: 120px;
@@ -181,7 +187,9 @@
                 <input type="file" class="contribute-file" type="text"
                     accept="image/gif,image/jpeg,image/jpg,image/png,image/wenp" @change="getPhoto($event)">
             </div>
-            <span class="file-name">{{photoName}}</span>
+            <span class="file-name">
+                <img id="show" class="show-photo" src="">{{photoName}}
+            </span>
         </div>
         <div class="contribute clearfix">
             <label class="text clearfix">音频分类</label>
@@ -215,79 +223,86 @@
     </div>
 </div>
 <script>
-    window.onload = function () {
-        Vue.prototype.$http = axios
-        new Vue({
-            el: '#contribute-form',
-            data: {
-                subject: '',
-                summary: '',
-                categoryId: '',
-                photo: '',
-                sound: '',
-                photoName: '',
-                soundName: '',
-                catelorys: [
-                    { value: 1, name: '三次元音乐'},
-                    { value: 2, name: '动漫配乐'},
-                    { value: 3, name: '翻唱'},
-                    { value: 4, name: 'Asmr'},
-                    { value: 5, name: '电子音乐'},
-                    { value: 6, name: '其他'}
-                ]
-            },
-            methods: {
-                getCategoryId(event) {
-                    this.categoryId = event.target.value
-                },
-                getPhoto(event) {
-                    this.photo = event.target.files[0]
-                    this.photoName = event.target.files[0].name
-                },
-                getSound(event) {
-                    this.sound = event.target.files[0]
-                    this.soundName = event.target.files[0].name
-                },
-                submitForm(event) {
-                    event.preventDefault();
-                    if (this.subject.length < 3) {
-                        alert('标题长度不能小于 3')
-                        return
-                    }
-                    if (!this.categoryId) {
-                        alert('请选择分类')
-                        return
-                    }
-                    if (!this.photo) {
-                        alert('请选择封面图片')
-                        return
-                    }
-                    if (!this.sound) {
-                        alert('请选择音频')
-                        return
-                    }
-                    let formData = new FormData();
-                    formData.append('subject', this.subject)
-                    formData.append('summary', this.summary)
-                    formData.append('categoryId', this.categoryId)
-                    formData.append('photo', this.photo)
-                    formData.append('sound', this.sound)
-                    let config = {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
-                    this.$http.post('/music/createmusic', formData, config).then(function (res) {
-                        if (res.status === 200) {
-                            console.log(res.data)
-                            alert(res.data.info)
-                            location.href = '/music/create'
-                        }
-                    })
+Vue.prototype.$http = axios
+new Vue({
+    el: '#contribute-form',
+    data: {
+        subject: '',
+        summary: '',
+        categoryId: '',
+        photo: '',
+        sound: '',
+        photoName: '',
+        soundName: '',
+        catelorys: [
+            { value: 1, name: '三次元音乐'},
+            { value: 2, name: '动漫配乐'},
+            { value: 3, name: '翻唱'},
+            { value: 4, name: 'Asmr'},
+            { value: 5, name: '电子音乐'},
+            { value: 6, name: '其他'}
+        ]
+    },
+    methods: {
+        getCategoryId(event) {
+            this.categoryId = event.target.value
+        },
+        getPhoto(event) {
+            var r = new FileReader();
+            this.photo = event.target.files[0]
+            r.readAsDataURL(this.photo);
+            r.onload=function (e) {
+                document.getElementById('show').src = this.result;
+                document.getElementById('show').style.display = 'block';
+            }
+            this.photoName = event.target.files[0].name
+        },
+        getSound(event) {
+            this.sound = event.target.files[0]
+            this.soundName = event.target.files[0].name
+        },
+        submitForm(event) {
+            event.preventDefault();
+            if (this.subject.length < 3) {
+                alert('标题长度不能小于 3')
+                return
+            }
+            if (!this.categoryId) {
+                alert('请选择分类')
+                return
+            }
+            if (!this.photo) {
+                alert('请选择封面图片')
+                return
+            }
+            if (!this.sound) {
+                alert('请选择音频')
+                return
+            }
+            let formData = new FormData();
+            formData.append('subject', this.subject)
+            formData.append('summary', this.summary)
+            formData.append('categoryId', this.categoryId)
+            formData.append('photo', this.photo)
+            formData.append('sound', this.sound)
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
             }
-        })
+            window.Fish.showModel('音频加载中')
+            this.$http.post('/music/createmusic', formData, config).then(function (res) {
+                window.Fish.hideModel()
+                if (res.status === 200) {
+                    console.log(res.data)
+                    alert(res.data.info)
+                    location.href = '/music/create'
+                }
+            })
+        }
     }
+})
+
 </script>
 <script>
     // 控制器返回的数据对象

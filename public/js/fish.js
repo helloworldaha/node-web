@@ -11,5 +11,13 @@
             throw ('数据名 ' + dataJsonStr + '不存在')
         }
         return data
+    },
+    showModel: function (str) {
+        document.body.innerHTML = '<div id="model"></div>'
+        var html = str ? '<div class="tip">' + str + '</div>' : ''
+        document.getElementById('model').innerHTML = html
+    },
+    hideModel: function () {
+        document.getElementById('model').style.display = 'none'
     }
 }

@@ -17,6 +17,24 @@ li {
 a {
     text-decoration: none;
 }
+#model {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    opacity: .8;
+    color: #fff;
+    background: #000;
+}
+#model .tip {
+    width: 100%;
+    margin-top: 18%;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+}
 .text {
     font: 16px Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
 }
