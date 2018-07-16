@@ -15,6 +15,13 @@
     <script src="/js/vue.js"></script>
 </head>
 <style>
+    .contribute-left {
+        float: left;
+    }
+    .contribute-right img {
+        margin-top: 79px;
+        width: 600px;
+    }
     .contribute {
         margin-top: 18px;
     }
@@ -169,46 +176,51 @@
 </div>
 <!-- 主体内容 -->
 <div id="vue-content" class="content">
-    <form id="contribute-form">
-        <div class="title">音频投稿：</div>
-        <div class="contribute clearfix">
-            <label class="text clearfix">音频标题</label>
-            <input value="" v-model="subject" class="contribute-input" placeholder="请输入音乐名称">
-        </div>
-        <div class="contribute clearfix">
-            <label class="text clearfix">音频简介</label>
-            <textarea type="text" value="" v-model="summary" class="contribute-text" placeholder="请输入简介" >
-            </textarea>
-        </div>
-        <div class="contribute clearfix">
-            <label class="text clearfix">音频封面</label>
-            <div class="contribute-file-box">
-                <span>选择图片</span>
-                <input type="file" class="contribute-file" type="text"
-                    accept="image/gif,image/jpeg,image/jpg,image/png,image/wenp" @change="getPhoto($event)">
+    <div class="contribute-left">
+        <form id="contribute-form">
+            <div class="title">音频投稿：</div>
+            <div class="contribute clearfix">
+                <label class="text clearfix">音频标题</label>
+                <input value="" v-model="subject" class="contribute-input" placeholder="请输入音乐名称">
             </div>
-            <span class="file-name">
+            <div class="contribute clearfix">
+                <label class="text clearfix">音频简介</label>
+                <textarea type="text" value="" v-model="summary" class="contribute-text" placeholder="请输入简介" >
+                </textarea>
+            </div>
+            <div class="contribute clearfix">
+                <label class="text clearfix">音频封面</label>
+                <div class="contribute-file-box">
+                    <span>选择图片</span>
+                    <input type="file" class="contribute-file" type="text"
+                        accept="image/gif,image/jpeg,image/jpg,image/png,image/wenp" @change="getPhoto($event)">
+                </div>
+                <span class="file-name">
                 <img id="show" class="show-photo" src="">{{photoName}}
             </span>
-        </div>
-        <div class="contribute clearfix">
-            <label class="text clearfix">音频分类</label>
-            <select type="text" required v-model="categoryId" class="contribute-select" @change="getCategoryId($event)">
-                <option v-for="catelory in catelorys" :value="catelory.value">{{catelory.name}}</option>
-            </select>
-        </div>
-        <div class="contribute clearfix">
-            <label class="text clearfix">音频文件</label>
-            <div class="contribute-file-box bg-red">
-                <div class="choose">
-                    <span>选择音频</span>
-                    <input type="file" accept="audio/mp3,audio/wav" class="contribute-file" @change="getSound($event)">
-                </div>
             </div>
-            <span class="file-name">{{soundName}}</span>
-        </div>
-        <input type="button" class="clear-input submit" value="确 认 投 稿" @click="submitForm($event)">
-    </form>
+            <div class="contribute clearfix">
+                <label class="text clearfix">音频分类</label>
+                <select type="text" required v-model="categoryId" class="contribute-select" @change="getCategoryId($event)">
+                    <option v-for="catelory in catelorys" :value="catelory.value">{{catelory.name}}</option>
+                </select>
+            </div>
+            <div class="contribute clearfix">
+                <label class="text clearfix">音频文件</label>
+                <div class="contribute-file-box bg-red">
+                    <div class="choose">
+                        <span>选择音频</span>
+                        <input type="file" accept="audio/mp3,audio/wav" class="contribute-file" @change="getSound($event)">
+                    </div>
+                </div>
+                <span class="file-name">{{soundName}}</span>
+            </div>
+            <input type="button" class="clear-input submit" value="确 认 投 稿" @click="submitForm($event)">
+        </form>
+    </div>
+    <div class="contribute-right">
+        <img alt="初音" src="/image/contribute-bg.png">
+    </div>
 </div>
 <!-- 页脚 -->
 <div id="footer">

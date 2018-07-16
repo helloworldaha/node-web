@@ -13,9 +13,9 @@
         return data
     },
     showModel: function (str) {
-        document.body.innerHTML = '<div id="model"></div>'
+        document.body.innerHTML += '<div id="model"></div>'
         var html = str ? '<div class="tip">' + str + '</div>' : ''
-        document.getElementById('model').innerHTML = html
+        document.getElementById('model').innerHTML += html
     },
     hideModel: function () {
         document.getElementById('model').style.display = 'none'
