@@ -3,6 +3,7 @@ var fs = require('fs')
 
 var config = require(path.join(__dirname, '../config.njs'))
 var mutils = require(path.join(config.path.fish, 'mutils.njs'))
+var log = require(path.join(config.path.fish, 'log.njs'))
 
 var date = mutils.date
 var Fish = {}
@@ -15,6 +16,8 @@ var actions = {
     },
     test: async function () {
         var request = this.params.request
+        var msg = JSON.stringify(request)
+        log.info(msg)
         return { req: request }
     },
     upload: async function () {
