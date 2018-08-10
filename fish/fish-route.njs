@@ -8,6 +8,8 @@ const PATH = config.path
 
 var Fish = {
     request: {
+        method: null,
+        url: null,
         get: {},
         post: {},
         files: [],
@@ -169,6 +171,9 @@ async function initFish(req) {
     Fish.request.get = url.parse(req.url, true).query
     Fish.request.files = req.files
     Fish.request.post = req.body
+    Fish.request.header = req.headers
+    Fish.request.method = req.method
+    Fish.request.url = req.url
     // console.log(req.body)
 }
 

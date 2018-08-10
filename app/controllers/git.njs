@@ -3,10 +3,11 @@ var fs = require('fs')
 
 var config = require(path.join(__dirname, '../config.njs'))
 var mutils = require(path.join(config.path.fish, 'mutils.njs'))
-var log = require(path.join(config.path.fish, 'log.njs'))
+var Log = require(path.join(config.path.fish, 'log.njs'))
 
-var date = mutils.date
+// @todo: 需要在基类定义
 var Fish = {}
+var date = mutils.date
 
 var actions = {
     params: {},
@@ -15,31 +16,9 @@ var actions = {
         // return data
     },
     test: async function () {
-        var request = this.params.request
-        var msg = JSON.stringify(request)
-        log.info(msg)
-        return { req: request }
-    },
-    upload: async function () {
-        var files = this.params.request.files
-        if (files.length > 0) {
-            var files_name = path.join(config.path.app, 'runtime/files/' + files[0].originalname)
-            fs.readFile(files[0].path, function (err, data) {
-                fs.writeFile(files_name, data, function (err) {
-                    if(err){
-                        console.log(err)
-                    }else{
-                        response = {
-                            message:'File uploaded successfully',
-                            filename:'files_name'
-                        };
-                    }
-                });
-            });
-        } else {
-            return '文件上传失败'
-        }
-        return files_name
+        var log = new Log.model(this.params)
+        log.info('我爱打发士大夫士大夫')
+        return '日志已生成'
     },
     createmusic: async function () {
         var subject = this.params.request.post.subject
