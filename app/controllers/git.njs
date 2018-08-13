@@ -17,7 +17,7 @@ var actions = {
     },
     test: async function () {
         var log = new Log.model(this.params)
-        log.info('我爱打发士大夫士大夫')
+        log.info('git 提交日志')
         return '日志已生成'
     },
     createmusic: async function () {
