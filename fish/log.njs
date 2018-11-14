@@ -22,7 +22,7 @@ class Log {
     var now = new Date().toLocaleString()
     var info = JSON.stringify({
       time: now,
-      request: this.request,
+      header: this.request,
       message: messsage
     })
     var msg = `\n>>> ${info}`
@@ -30,4 +30,4 @@ class Log {
   }
 }
 
-exports.model = Log
+module.exports = Log
