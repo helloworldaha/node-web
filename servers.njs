@@ -1,5 +1,5 @@
 var url = require('url')
-var static = require('node-static');
+var static = require('node-static')
 var express = require('express')
 var bodyParser = require('body-parser')
 var multer  = require('multer')

@@ -13,8 +13,7 @@ module.exports = {
     "html"
   ],
   "extends": [
-    "eslint:recommended",
-    "airbnb-base/legacy"
+    "eslint:recommended"
   ],
   "settings": {
     "html/html-extensions": [".html"],
