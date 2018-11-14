@@ -89,7 +89,7 @@ var actions = {
     createmusic: async function () {
         var subject = this.params.request.post.subject
         var summary = this.params.request.post.summary
-        var category_id = parseInt(this.params.request.post.category_id)
+        var category_id = parseInt(this.params.request.post.categoryId)
         var photoFile = this.params.request.files.photo
         var soundFile = this.params.request.files.sound
         if (!photoFile) {
