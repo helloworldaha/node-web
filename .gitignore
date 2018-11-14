@@ -2,3 +2,4 @@
 node_modules/*
 app/config.njs
 public/tem/*
+app/runtime/*
